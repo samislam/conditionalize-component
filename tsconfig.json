@@ -7,7 +7,7 @@
     "baseUrl": "./src",
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./dir",
+    "outDir": "./dist",
     "declarationDir": "./@types",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
