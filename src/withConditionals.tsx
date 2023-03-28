@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import type { FC } from 'react'
 import { flexifyParams } from 'flexifyparams'
@@ -5,14 +6,15 @@ import type { ConditionalProps } from './global.model'
 
 function withConditionals<PROPS extends object>(OriginalComponent: FC<PROPS>): FC<PROPS & ConditionalProps> {
   return (props) => {
+    const conditionalKeys = ['fallback', 'override', 'renderIf', 'execludeChildren']
     const {
-      children,
       fallback,
       override,
       renderIf = true,
       execludeChildren = false,
-      ...originalProps
-    } = flexifyParams(props as ConditionalProps)
+    } = flexifyParams(_.pick(props, conditionalKeys))
+    const { children, ...originalProps } = _.omit(props, conditionalKeys)
+    
     let renderEl: any
     switch (true) {
       case execludeChildren === true:
