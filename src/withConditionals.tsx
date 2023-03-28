@@ -1,38 +1,34 @@
+import React from 'react'
 import type { FC } from 'react'
-import React, { ReactNode } from 'react'
 import { flexifyParams } from 'flexifyparams'
+import type { ConditionalProps } from './global.model'
 
-interface ConditionalProps {
-  renderIf?: boolean
-  override?: ReactNode
-  children?: ReactNode
-  fallback?: ReactNode
-  execludeChildren?: boolean
-}
-
-type FC2<P extends object> = (props: P) => ReactNode
-
-function withConditionals<PROPS extends object>(OriginalComponent: FC<PROPS>): FC2<PROPS & ConditionalProps> {
+function withConditionals<PROPS extends object>(OriginalComponent: FC<PROPS>): FC<PROPS & ConditionalProps> {
   return (props) => {
-    const f = <React.Fragment />
     const {
-      children = f,
-      fallback = f,
-      override = f,
+      children,
+      fallback,
+      override,
       renderIf = true,
       execludeChildren = false,
       ...originalProps
     } = flexifyParams(props as ConditionalProps)
+    let renderEl: any
     switch (true) {
       case execludeChildren === true:
-        return children
+        renderEl = children
+        break
       case renderIf === true:
-        return <OriginalComponent {...(originalProps as PROPS)} />
+        renderEl = <OriginalComponent {...(originalProps as PROPS)} />
+        break
       case !!override:
-        return override
+        renderEl = override
+        break
       default:
-        return fallback
+        renderEl = fallback
     }
+
+    return <React.Fragment>{renderEl}</React.Fragment>
   }
 }
 
