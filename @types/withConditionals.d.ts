@@ -1,11 +1,13 @@
-import type { FC, ReactElement } from 'react';
+import type { FC } from 'react';
+import { ReactNode } from 'react';
 interface ConditionalProps {
     renderIf?: boolean;
-    override?: ReactElement;
-    children?: ReactElement;
-    fallback?: ReactElement;
+    override?: ReactNode;
+    children?: ReactNode;
+    fallback?: ReactNode;
     execludeChildren?: boolean;
 }
-declare function withConditionals<PROPS extends object>(OriginalComponent: FC<PROPS>): FC<PROPS & ConditionalProps>;
+type FC2<P extends object> = (props: P) => ReactNode;
+declare function withConditionals<PROPS extends object>(OriginalComponent: FC<PROPS>): FC2<PROPS & ConditionalProps>;
 export default withConditionals;
 //# sourceMappingURL=withConditionals.d.ts.map
