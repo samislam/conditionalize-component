@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import React, { PropsWithChildren } from 'react'
-import type { FC } from 'react'
+import type { FC, Ref } from 'react'
 import { flexifyParams } from 'flexifyparams'
-import type { ConditionalProps } from './global.model'
+import type { ConditionalProps } from './types'
+import React, { PropsWithChildren, forwardRef } from 'react'
 
-function withConditionals<PROPS extends PropsWithChildren>(OriginalComponent: FC<PROPS>): FC<PROPS & ConditionalProps> {
-  return (props) => {
+function withConditionals<PROPS extends PropsWithChildren>(OriginalComponent: FC<PROPS>) {
+  const ConditionalizedComponent = (props: PROPS & ConditionalProps, ref: Ref<unknown>) => {
     const conditionalKeys = ['fallback', 'override', 'renderIf', 'execludeChildren']
     const {
       fallback,
@@ -21,7 +21,7 @@ function withConditionals<PROPS extends PropsWithChildren>(OriginalComponent: FC
         renderEl = originalProps.children
         break
       case renderIf === true:
-        renderEl = <OriginalComponent {...(originalProps as PROPS)} />
+        renderEl = <OriginalComponent {...(originalProps as PROPS)} ref={ref} />
         break
       case !!override:
         renderEl = override
@@ -32,6 +32,7 @@ function withConditionals<PROPS extends PropsWithChildren>(OriginalComponent: FC
 
     return <React.Fragment>{renderEl}</React.Fragment>
   }
+  return forwardRef(ConditionalizedComponent)
 }
 
 export default withConditionals
