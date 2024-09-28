@@ -1,6 +1,6 @@
 {
   "name": "conditionalize-component",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "a react HOC for rendering components conditionally",
   "main": "./dist/index.js",
   "type": "commonjs",
