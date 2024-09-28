@@ -6,3 +6,6 @@ export const RenderIf = withConditionals(({ children, ...props }: PropsWithChild
 ))
 
 export default RenderIf
+;() => {
+  return <RenderIf></RenderIf>
+}
