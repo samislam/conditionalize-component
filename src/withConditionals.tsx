@@ -32,7 +32,7 @@ function withConditionals<PROPS>(OriginalComponent: FC<PROPS>) {
 
     return <React.Fragment>{renderEl}</React.Fragment>
   }
-  return forwardRef(ConditionalizedComponent)
+  return forwardRef(ConditionalizedComponent as any)
 }
 
 export default withConditionals
