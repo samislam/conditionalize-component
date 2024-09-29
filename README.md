@@ -50,6 +50,38 @@ function UsersPage() {
 }
 ```
 
+# Using the built-in `DivIf` component
+
+You can also use the premade `DivIf` component which is basically a div but has the conditional props such as `renderIf`:
+```tsx
+import { DivIf } from 'conditionalize-component'
+
+function App(){
+ return (
+    <div>
+      <DivIf renderIf={1 + 1 === 2}> You'll see me if 1 + 1 = 2 </DivIf>
+      <div> You'll see me when 5 + 5 = 12 </div>
+    </div>
+  )
+}
+```
+
+# Using the built-in `RenderIf` component
+
+If you don't want to use `DivIf` component because it adds an HTML element to your DOM, you can use the `RenderIf` component which is basically a react fragment but has the conditional props such as `renderIf`:
+```tsx
+import { RenderIf } from 'conditionalize-component'
+
+function App(){
+ return (
+    <div>
+      <RenderIf renderIf={1 + 1 === 2}> You'll see me if 1 + 1 = 2 </RenderIf>
+      <div> You'll see me when 5 + 5 = 12 </div>
+    </div>
+ )
+}
+```
+
 # API
 
 After applying the HOC on any of your components, you'll get the following props added to the interface of your component props:
