@@ -4,5 +4,5 @@ export interface ConditionalProps {
   renderIf?: boolean
   override?: ReactNode
   fallback?: ReactNode
-  execludeChildren?: boolean
+  excludeChildren?: boolean
 }
