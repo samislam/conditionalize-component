@@ -34,17 +34,16 @@ function UsersPage() {
 For native html elements, or Class components, simply wrap them in a function and pass them the necessary props
 
 ```tsx
-import { Box } from 'MyBoxComponent'
 import { withConditionals } from 'conditionalize-component'
 
-const DivC = withConditionals((props) => <div {...props} />) // now DivC is wrapped with the conditional props such as renderIf
+export const Button = withConditionals((props: React.HTMLAttributes<HTMLButtonElement>) => <button {...props} />) // now button is wrapped with the conditional props such as renderIf
 
 function UsersPage() {
   return (
     <div>
       <h1>Other stuff</h1>
-      <DivC renderIf={true}>You'll see me</DivC>
-      <DivC renderIf={false}>You'll not see me</DivC>
+      <Button renderIf={true}>You'll see me</Button>
+      <Button renderIf={false}>You'll not see me</Button>
     </div>
   )
 }
