@@ -1,12 +1,16 @@
 import _ from 'lodash'
 import React, { forwardRef } from 'react'
-import type { ConditionalProps } from './types'
-import type { FC, PropsWithoutRef } from 'react'
+import type { FC, PropsWithoutRef, ReactNode } from 'react'
 
-export  const withConditionals = <P>(OriginalComponent: FC<P>) => </P>{
+export const withConditionals = <P,>(OriginalComponent: FC<P>) => {
   return forwardRef((props: PropsWithoutRef<P & ConditionalProps>, ref) => {
     const conditionalKeys = ['fallback', 'override', 'renderIf', 'excludeChildren']
-    const { fallback, override, renderIf = true, excludeChildren = false } = _.pick(props, conditionalKeys)
+    const {
+      fallback,
+      override,
+      renderIf = true,
+      excludeChildren = false,
+    } = _.pick(props, conditionalKeys)
 
     const originalProps = _.omit(props, conditionalKeys) as any
 
@@ -28,11 +32,6 @@ export  const withConditionals = <P>(OriginalComponent: FC<P>) => </P>{
     return <React.Fragment>{renderEl}</React.Fragment>
   })
 }
-
-
-
-
-import type { ReactNode } from 'react'
 
 export interface ConditionalProps {
   renderIf?: boolean

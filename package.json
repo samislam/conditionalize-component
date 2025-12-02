@@ -67,6 +67,7 @@
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.21",
     "@types/node": "^22.16.0",
+    "@types/react": "^19.2.7",
     "barrelsby": "^2.8.1",
     "chalk": "4",
     "chokidar-cli": "^3.0.0",
@@ -92,6 +93,7 @@
     "typescript-transform-paths": "^3.5.5"
   },
   "dependencies": {
-    "common-es": "^1.1.0"
+    "common-es": "^1.1.0",
+    "react": "^19.2.0"
   }
 }

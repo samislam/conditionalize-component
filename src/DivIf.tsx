@@ -1,7 +1,7 @@
-import React from 'react'
-import withConditionals from './withConditionals'
+import type { HTMLAttributes } from 'react'
+import { withConditionals } from './withConditionals'
 
-export const DivIf = withConditionals(({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+export const DivIf = withConditionals(({ children, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div {...props}>{children}</div>
 ))
 
