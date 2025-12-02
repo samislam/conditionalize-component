@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import React, { forwardRef } from 'react'
-import type { FC, PropsWithoutRef, ReactNode } from 'react'
+import type { ComponentType, PropsWithoutRef, ReactNode } from 'react'
 
-export const withConditionals = <P,>(OriginalComponent: FC<P>) => {
+export const withConditionals = <P,>(OriginalComponent: ComponentType<P>) => {
   return forwardRef((props: PropsWithoutRef<P & ConditionalProps>, ref) => {
     const conditionalKeys = ['fallback', 'override', 'renderIf', 'excludeChildren']
     const {
