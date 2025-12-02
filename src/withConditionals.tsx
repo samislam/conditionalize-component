@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 import type { ConditionalProps } from './types'
 import type { FC, PropsWithoutRef } from 'react'
 
-function withConditionals<P>(OriginalComponent: FC<P>) {
+export  const withConditionals = <P>(OriginalComponent: FC<P>) => </P>{
   return forwardRef((props: PropsWithoutRef<P & ConditionalProps>, ref) => {
     const conditionalKeys = ['fallback', 'override', 'renderIf', 'excludeChildren']
     const { fallback, override, renderIf = true, excludeChildren = false } = _.pick(props, conditionalKeys)
@@ -29,4 +29,14 @@ function withConditionals<P>(OriginalComponent: FC<P>) {
   })
 }
 
-export default withConditionals
+
+
+
+import type { ReactNode } from 'react'
+
+export interface ConditionalProps {
+  renderIf?: boolean
+  override?: ReactNode
+  fallback?: ReactNode
+  excludeChildren?: boolean
+}
