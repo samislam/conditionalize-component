@@ -9,6 +9,7 @@ import { runCommandsSequentially } from '@clscripts/cl-common'
 const barrelCommand = new Barrelsby({
   directory: './src',
   delete: true,
+  exclude: ['index.ts'],
 }).command
 
 runCommandsSequentially(
