@@ -1,26 +1,29 @@
 import _ from 'lodash'
 import React, { forwardRef } from 'react'
-import type { ComponentType, PropsWithoutRef, ReactNode } from 'react'
+import type { ComponentType, ForwardedRef, PropsWithoutRef, ReactNode } from 'react'
 
-export const withConditionals = <P,>(OriginalComponent: ComponentType<P>) => {
-  return forwardRef((props: PropsWithoutRef<P & ConditionalProps>, ref) => {
-    const conditionalKeys = ['fallback', 'override', 'renderIf', 'excludeChildren']
-    const {
-      fallback,
-      override,
-      renderIf = true,
-      excludeChildren = false,
-    } = _.pick(props, conditionalKeys)
+const conditionalKeys: (keyof ConditionalProps)[] = ['fallback', 'override', 'renderIf', 'excludeChildren']
 
-    const originalProps = _.omit(props, conditionalKeys) as any
+type ConditionalizedProps<P> = PropsWithoutRef<P & ConditionalProps>
 
-    let renderEl: any
+export const withConditionals = <P,>(
+  OriginalComponent: ComponentType<P & { ref?: ForwardedRef<unknown> }>
+) => {
+  return forwardRef<unknown, ConditionalizedProps<P>>((props, ref) => {
+    const { fallback, override, renderIf = true, excludeChildren = false } = _.pick(
+      props,
+      conditionalKeys
+    ) as Partial<ConditionalProps>
+
+    const originalProps = _.omit(props, conditionalKeys) as P & { children?: ReactNode }
+
+    let renderEl: ReactNode = null
     switch (true) {
       case excludeChildren === true:
         renderEl = originalProps?.children
         break
       case renderIf === true:
-        renderEl = <OriginalComponent {...(originalProps as P)} ref={ref} />
+        renderEl = <OriginalComponent {...originalProps} ref={ref} />
         break
       case !!override:
         renderEl = override
